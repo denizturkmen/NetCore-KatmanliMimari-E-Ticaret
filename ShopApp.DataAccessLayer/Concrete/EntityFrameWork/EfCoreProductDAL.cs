@@ -37,13 +37,14 @@ namespace ShopApp.DataAccessLayer.Concrete.EntityFrameWork
 
                 //category bilgisi var mı yokmu
                 //products/telefon
+                //isnullempty : dışarıdan parametre okarak verilen değer boşsa true döndürür
                 if (!string.IsNullOrEmpty(category))
                 {
                     products = products
                         .Include(i => i.ProductCategories)
                         .ThenInclude(i => i.Category)
                         .Where(i => i.ProductCategories.Any(a => a.Category.Name.ToLower() == category.ToLower()));
-
+                    //any ile products içinde category bilgisi var mı onu kontrol ediyoruz
                 }
                 //bütün product listesi
                 //return products.ToList();
