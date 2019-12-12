@@ -24,7 +24,7 @@ namespace ShopApp.WebUI.Controllers
             {
                 return NotFound();
             }
-            //product içinde businees Productmanager yaptığınız işlemden dolayı category bilgiside var
+            //product içinde EfcoreproductDaldan yaptığınız işlemden dolayı category bilgiside var
             Product product = _productService.GetProductDetails((int)id);
             if (product == null)
             {
