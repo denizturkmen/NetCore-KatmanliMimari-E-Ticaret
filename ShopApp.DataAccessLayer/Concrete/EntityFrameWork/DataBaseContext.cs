@@ -31,5 +31,7 @@ namespace ShopApp.DataAccessLayer.Concrete.EntityFrameWork
 
         //Sipariş işlemleri için
         public DbSet<Order> Orders { get; set; }
-    }
+
+
+        }
 }

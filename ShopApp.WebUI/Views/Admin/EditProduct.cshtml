@@ -55,10 +55,13 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Viewbbag üzerindeden aldığımız için list<> cast etcez dönüş çünkü list bekliyor-->
         <div class="col-md-4">
             @foreach (var item in (List<Category>)ViewBag.Categories)
             {
                 var isChecked = "";
+                <!-- categoryiçinde seclili olanları alma -->
                 if (Model.SelectedCategories.Any(i => i.Id == item.Id))
                 {
                     isChecked = "checked";

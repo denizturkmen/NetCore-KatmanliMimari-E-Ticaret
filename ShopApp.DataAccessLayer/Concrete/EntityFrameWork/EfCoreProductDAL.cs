@@ -118,7 +118,7 @@ namespace ShopApp.DataAccessLayer.Concrete.EntityFrameWork
                     product.ImageUrl = entity.ImageUrl;
                     product.Price = entity.Price;
 
-                    //Important
+                    //Important asıl önemli olan yer burası
                     product.ProductCategories = categoryIds.Select(catid => new ProductCategory()
                     {
                         CategoryId = catid,

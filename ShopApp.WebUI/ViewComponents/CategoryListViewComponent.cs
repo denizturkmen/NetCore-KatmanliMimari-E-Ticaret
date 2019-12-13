@@ -23,6 +23,7 @@ namespace ShopApp.WebUI.ViewComponents
             {
                 //startup.cs içindeki category ismi
                 //null olduğunuda göz önünde bulunduruyoruz
+                // RouteData url deki değeri almak için geçerli urlalabilirsin
                 SelectedCategory = RouteData.Values["category"]?.ToString(),
                 Categories = _categoryService.GetAll()
             });

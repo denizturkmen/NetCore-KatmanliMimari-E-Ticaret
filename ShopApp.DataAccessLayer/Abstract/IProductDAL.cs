@@ -14,6 +14,7 @@ namespace ShopApp.DataAccessLayer.Abstract
         List<Product> GetProductsByCategory(string category,int page ,int pageSize);
 
         Product GetProductDetails(int id);
+        
         //Pagination için
         int GetCountByCategory(string category);
 

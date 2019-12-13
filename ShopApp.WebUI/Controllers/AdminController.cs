@@ -78,6 +78,7 @@ namespace ShopApp.WebUI.Controllers
                 return NotFound();
             }
             //var entity = _productService.GetById((int)id);
+            // GetByIdWithCategories metot ile entity içinde hem product hem de category bilgileri mevcut
             var entity = _productService.GetByIdWithCategories((int)id);
             if (entity == null)
             {
@@ -91,7 +92,7 @@ namespace ShopApp.WebUI.Controllers
                 Price = entity.Price,
                 Description = entity.Description,
                 ImageUrl = entity.ImageUrl,
-                //product category seçmek
+                //product category geçmek için
                 SelectedCategories = entity.ProductCategories.Select(i => i.Category).ToList()
             };
 
@@ -133,6 +134,7 @@ namespace ShopApp.WebUI.Controllers
                 return RedirectToAction("ProductList");
             }
 
+            //Category ait bütün varileri almak için
             ViewBag.Categories = _categoryService.GetAll();
             return View(model);
         }
