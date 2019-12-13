@@ -12,8 +12,6 @@
     <script>CKEDITOR.replace("editor")</script>
 }
 
-
-
 <h1>Edit Product</h1>
 <hr />
 <form asp-controller="Admin" asp-action="Edit" method="post" enctype="multipart/form-data">
@@ -61,11 +59,12 @@
             @foreach (var item in (List<Category>)ViewBag.Categories)
             {
                 var isChecked = "";
-                <!-- categoryiçinde seclili olanları alma -->
+                <!-- categoryiçinde seclili olanları alma checked -->
                 if (Model.SelectedCategories.Any(i => i.Id == item.Id))
                 {
                     isChecked = "checked";
                     <!-- hangi category olduğunu alcaz yoksa null exceptiın alıyoruz-->
+                    <!-- post mettotta SelectedCategory almadığımız için viewde geçiçi olarak tutmak için-->
                     <input type="hidden" name="SelectedCategories[@counter].Id" value="@item.Id" />
                     <input type="hidden" name="SelectedCategories[@counter].Name" value="@item.Name" />
 
