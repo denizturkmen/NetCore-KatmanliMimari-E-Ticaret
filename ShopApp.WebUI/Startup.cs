@@ -23,9 +23,10 @@ namespace ShopApp.WebUI
     public class Startup
     {
         //appsettings dosyasından bilgi almak için
-        //appsettings claasik mvc web.config eş değer
+        //appsettings clasik  mvc web.config eş değer
         public IConfiguration Configuration { get; set; }
 
+        //Inject işlemi dışarıdan geleni almnak
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -43,10 +44,13 @@ namespace ShopApp.WebUI
             //services.AddScoped<IProductDAL, MemoryProductDal>();
 
             //appsettings connection string almak için
+            //Hangi DAtabase provider kullancağını söylüyoruz
+            // https://docs.microsoft.com/tr-tr/ef/core/providers/?tabs=dotnet-core-cli
             services.AddDbContext<ApplicationIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
 
-            //token reset-confirm için
+            //token reset-confirm için benzersiz token veriyor
+            // AddEntityFrameworkStores vwrileri saklayacağı yer
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
                 .AddDefaultTokenProviders();
@@ -55,7 +59,6 @@ namespace ShopApp.WebUI
             services.Configure<IdentityOptions>(options =>
             {
                 // password
-
                 options.Password.RequireDigit = true; //sayısal değer olsun
                 options.Password.RequireLowercase = true; //küçük harf içersin
                 options.Password.RequiredLength = 6; //minumun uzunluğu
@@ -64,14 +67,14 @@ namespace ShopApp.WebUI
 
                 //Lock
                 options.Lockout.MaxFailedAccessAttempts = 5; //5 yanlıştan sonra kilitler
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60); // ne kadar kilitliyeceği
-                options.Lockout.AllowedForNewUsers = true; //yeni kullanıcılar içinde geçerli
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // ne kadar kilitliyeceği
+                options.Lockout.AllowedForNewUsers = true; //yeni kullanıcılar içinde geçerli lock
 
-                // options.User.AllowedUserNameCharacters = "";
+                // options.User.AllowedUserNameCharacters = ""; // özel karakterler belirleyebilirsin alfabeden
                 options.User.RequireUniqueEmail = true;
 
                 options.SignIn.RequireConfirmedEmail = true; // onay maili gelsin
-                options.SignIn.RequireConfirmedPhoneNumber = false; // onat telefona gelsin
+                options.SignIn.RequireConfirmedPhoneNumber = false; // onay telefona gelsin
             });
 
             //Cookie ayarlarları(tarayıcda tutulan)
@@ -80,14 +83,15 @@ namespace ShopApp.WebUI
                 options.LoginPath = "/account/login";
                 options.LogoutPath = "/account/logout";
                 options.AccessDeniedPath = "/account/accessdenied";
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // tarayıcıda ne kadar süre kalsın
                 options.SlidingExpiration = true;
+
                 options.Cookie = new CookieBuilder
                 {
                     HttpOnly = true,
                     Name = ".ShopApp.Security.Cookie",
-                    
-                    SameSite = SameSiteMode.Strict //Csrf engellemek için ama controller tarafında validate et token ı
+                    //Csrf engellemek için ama controller tarafında validate et token ı
+                    SameSite = SameSiteMode.Strict 
                 };
 
             });
@@ -131,6 +135,7 @@ namespace ShopApp.WebUI
 
             //useMvc önce olmak zorunda 
             app.UseAuthentication();
+            
             //Yönlendirme 
             app.UseMvc(routes =>
             {

@@ -6,12 +6,15 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
+
 namespace ShopApp.WebUI.EmailServices
 {
-    public class EmailSender:IEmailSender
+    public class EmailSender : IEmailSender
     {
-        
-        private const string SendGridKey = "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";
+        // turkmenn.deniz
+        //private const string SendGridKey = "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";
+
+        private const string SendGridKey = "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";
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             //email dışardan gelen mail
@@ -25,6 +28,7 @@ namespace ShopApp.WebUI.EmailServices
 
             var msg = new SendGridMessage()
             {
+                //mailinde kimden geldiği
                 From = new EmailAddress("info@shopapp.com", "Shop App Deniz"),
                 Subject = subject,
                 PlainTextContent = message,
@@ -35,5 +39,10 @@ namespace ShopApp.WebUI.EmailServices
             msg.AddTo(new EmailAddress(email));
             return client.SendEmailAsync(msg);
         }
+
+
+
+
+
     }
 }

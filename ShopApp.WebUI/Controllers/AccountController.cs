@@ -28,7 +28,7 @@ namespace ShopApp.WebUI.Controllers
         //Cart Alişveriş sepeti ile ilgili işlemler
         private ICartService _cartService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender,ICartService cartService)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, ICartService cartService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -37,6 +37,7 @@ namespace ShopApp.WebUI.Controllers
         }
         public IActionResult Register()
         {
+            //eğer viewde model kullanmışsan modeli gette yolluycaksın yoksa nullexception alırsın
             return View(new RegisterModel());
         }
 
@@ -55,20 +56,24 @@ namespace ShopApp.WebUI.Controllers
                 Email = model.Email,
                 FullName = model.FullName
             };
-
+            //password burda yapmamaız nedeni hashleyip veritabanı atmak için
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
                 // generate token
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                // callback url ile confirmEmail action parametreleri gönderdik
+                // kullanıcı onay maili
                 var callbackUrl = Url.Action("ConfirmEmail", "Account", new
                 {
+                    //gidecek paramtreler 
                     userId = user.Id,
                     token = code
                 });
 
                 // send email
+                // calbackurl link olarak kullanıcıya göndermek için
                 await _emailSender.SendEmailAsync(model.Email, "Hesabınızı Onaylayınız.", $"Lütfen email hesabınızı onaylamak için linke <a href='http://localhost:49308{callbackUrl}'>tıklayınız.</a>");
 
                 //Kullancı hatalari için ekranda bilgi
@@ -82,7 +87,7 @@ namespace ShopApp.WebUI.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-
+            //Modelstate olmadığunda genel hata için
             ModelState.AddModelError("", "Bilinmeyen hata oluştu lütfen tekrar deneyiniz.");
             return View(model);
         }
@@ -92,6 +97,7 @@ namespace ShopApp.WebUI.Controllers
         {
             return View(new LoginModel()
             {
+                //Model içinden aldık
                 ReturnUrl = ReturnUrl
             });
         }
@@ -117,7 +123,8 @@ namespace ShopApp.WebUI.Controllers
                 return View(model);
             }
 
-
+            //Ispersist tarayıcı kapandığında cookie kalsın mı kalmasın mı ayrıca startup.cs kalacağı süreyi belirtik
+            // chechbox semimi aktifleştir
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, true, false);
 
             if (result.Succeeded)
@@ -157,9 +164,11 @@ namespace ShopApp.WebUI.Controllers
                 return Redirect("~/");
             }
 
+            // parametre olarak gelen userıd aldık
             var user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
+                //maili onaylama bilgisi için
                 var result = await _userManager.ConfirmEmailAsync(user, token);
                 if (result.Succeeded)
                 {
@@ -178,6 +187,8 @@ namespace ShopApp.WebUI.Controllers
 
                     return RedirectToAction("Login");
                 }
+
+
             }
 
             TempData.Put("message", new ResultMessage()
