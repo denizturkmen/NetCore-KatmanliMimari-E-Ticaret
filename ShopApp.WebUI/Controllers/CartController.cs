@@ -39,7 +39,7 @@ namespace ShopApp.WebUI.Controllers
             // çünkü biz userıd göre işlem yaptık
             // nqs30117@bcaoo.com
             var cart = _cartService.GetCartByUserId(_userManager.GetUserId(User));
-
+            
             return View(new CartModel()
             {
                 CartId = cart.Id,

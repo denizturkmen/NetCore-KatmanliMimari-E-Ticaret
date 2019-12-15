@@ -12,6 +12,7 @@ namespace ShopApp.DataAccessLayer.Concrete.EntityFrameWork
     {
         public Cart GetByUserId(string userId)
         {
+            //cart üzerinde hangi product olduğu 
             using (var context = new DataBaseContext())
             {
                 return context
@@ -26,6 +27,7 @@ namespace ShopApp.DataAccessLayer.Concrete.EntityFrameWork
         public override void Update(Cart entity)
         {
             //bunu diyerek cartın işikili olduğu cartItems güncellemiş olduk
+            // genericte metotu virtual yaptık
             using (var context = new DataBaseContext())
             {
                 context.Carts.Update(entity);
