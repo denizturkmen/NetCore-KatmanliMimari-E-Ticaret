@@ -27,6 +27,7 @@ namespace ShopApp.WebUI
         public IConfiguration Configuration { get; set; }
 
         //Inject işlemi dışarıdan geleni almnak
+        // appsettings.json içindekileri almak için
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;

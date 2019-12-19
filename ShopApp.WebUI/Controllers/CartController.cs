@@ -118,7 +118,7 @@ namespace ShopApp.WebUI.Controllers
                 };
 
                 var payment = PaymentProcess(model);
-
+                //diğer hata kodlarını kullanıcıya göstermelisin
                 if (payment.Status == "success")
                 {
                     SaveOrder(model, payment, userId);

@@ -25,7 +25,7 @@ namespace ShopApp.DataAccessLayer.Concrete.EntityFrameWork
 
         public IEnumerable<Product> GetPopularProducts()
         {
-            throw new NotImplementedException();
+            return GetAll().ToList();
         }
 
         public List<Product> GetProductsByCategory(string category, int page, int pageSize)
