@@ -22,7 +22,7 @@ namespace ShopApp.WebUI.TagHelpers
         {         
             output.TagName = "div";
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("<ul class='pagination'>");
+            stringBuilder.Append("<ul class='pagination justify-content-md-center'>");
 
             for (int i = 1; i <= PageModel.TotalPages(); i++)
             {

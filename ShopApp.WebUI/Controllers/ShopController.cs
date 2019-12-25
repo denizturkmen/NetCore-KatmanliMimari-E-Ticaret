@@ -38,7 +38,8 @@ namespace ShopApp.WebUI.Controllers
         }
 
         //products/telefon?page=2
-        public IActionResult List(string category, int page = 1)
+        public IActionResult List([FromRoute]string category, int page = 1)
+       // public IActionResult List(string category, int page = 1)
         {
             const int pageSize = 3; // göstericek sayfa sayısı
             return View(new ProductListModel()
