@@ -17,6 +17,7 @@ namespace ShopApp.BusinessLayer.Concrete
         //Dopru olan Interfa Interface üzerinden işlem yapması
         //EfCoreProductDAL _efCoreProductDal = new EfCoreProductDAL();
 
+        
         //DAL katmanındaki ilişkili oldupu INTERFACE üzerinden metotları ulaşıp işlem yapacaz bunun içini
         private IProductDAL _productDal;
 
