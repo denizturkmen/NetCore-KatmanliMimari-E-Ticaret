@@ -14,7 +14,7 @@ namespace ShopApp.BusinessLayer.Concrete
         //Bu yanlış çnkü ProductManager, EfCoreProductDAL bağımlı oluyor
         //KAtmanlı mimariye ters
         //Concrete class concrete yapıyı çağırması yanlış
-        //Dopru olan Interfa Interface üzerinden işlem yapması
+        //Dopru olan Interface Interface üzerinden işlem yapması
         //EfCoreProductDAL _efCoreProductDal = new EfCoreProductDAL();
 
         

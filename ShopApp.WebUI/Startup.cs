@@ -92,7 +92,7 @@ namespace ShopApp.WebUI
                     HttpOnly = true,
                     Name = ".ShopApp.Security.Cookie",
                     //Csrf engellemek için ama controller tarafında validate et token ı
-                    SameSite = SameSiteMode.Strict 
+                    SameSite = SameSiteMode.Strict // sadece o site için geçerli(Strict)
                 };
 
             });
@@ -126,7 +126,7 @@ namespace ShopApp.WebUI
                 SeedDatabase.Seed();
             }
 
-            //DefaultMcx yönlednirme
+            //DefaultMvc yönlednirme
             //app.UseMvcWithDefaultRoute();
 
             //static olan dosyaları açmak için erişme node_modules
