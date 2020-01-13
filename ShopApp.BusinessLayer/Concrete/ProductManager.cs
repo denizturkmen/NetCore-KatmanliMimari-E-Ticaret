@@ -19,6 +19,7 @@ namespace ShopApp.BusinessLayer.Concrete
 
         
         //DAL katmanındaki ilişkili oldupu INTERFACE üzerinden metotları ulaşıp işlem yapacaz bunun içini
+        //Iproductdal efcoreproduct sahip
         private IProductDAL _productDal;
 
         //Dışardan parametre olarak gelen productdal bu sınıf içine alıyoruz
